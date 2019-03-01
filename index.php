@@ -1,73 +1,43 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="Content-Style-Type" content="text/css">
-        <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Club Social y Deportivo Random</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="my-form" class="d-flex flex-column justify-content-start align-items-stretch my-5" action="/login.php" method="post">
+        <img class="logo mb-3" src="images/Random.jpg" alt="Logo del club" />
 
-        <title>TurnKey LAMP</title>
-        
-        <link rel="stylesheet" href="css/ui.tabs.css" type="text/css" media="print, projection, screen"/>
-        <link rel="stylesheet" href="css/base.css" type="text/css"/>
-
-        <script src="js/jquery-1.2.6.js" type="text/javascript"></script>
-        <script src="js/ui.core.js" type="text/javascript"></script>
-        <script src="js/ui.tabs.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(function() {
-                $('#container-1 > ul').tabs({ fx: { opacity: 'toggle'} });
-            });
-        </script>
-    </head>
-
-    <body>
-        <h1>TurnKey LAMP</h1>
-        
-        <div id="container-1">
-            <ul>
-                <li><a href="#cp"><span>Control Panel</span></a></li>
-            </ul>
-
-            <div id="cp">
-                <div class="fragment-content">
-                    <div>
-                        <a href="https://<?php print
-                        $_SERVER{'HTTP_HOST'}; ?>:12320"><img
-                        src="images/shell.png"/>Web Shell</a>
-                    </div>
-                    <div>
-                        <a href="https://<?php print
-                        $_SERVER{'HTTP_HOST'}; ?>:12321"><img
-                        src="images/webmin.png"/>Webmin</a>
-                    </div>
-                    <div>
-                        <a href="https://<?php print
-                        $_SERVER{'HTTP_HOST'}; ?>:12322"><img
-                        src="images/adminer.png"/>Adminer</a>
-                    </div>
-                    <div></div>
-                    <div></div>
-
-                    <h2>Resources and references</h2>
-                    <ul>
-
-                        <li>
-                          <a href="/phpinfo.php">Apache PHP information</a>
-                          (to disable: rm /var/www/phpinfo.php)
-                        </li>
-                        <li>
-                          <a href="/server-status">Apache server status</a>
-                          (to disable: a2dismod status)
-                        </li>
-                        <li><a
-                        href="https://www.turnkeylinux.org/lamp">
-                        TurnKey LAMP release notes</a></li>
-                    </ul>
-
-                </div>
-            </div>
-
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa tu email">
+          <div id="email-error" class="p-2">
+            <small id="email-error-text"></small>
+          </div>
         </div>
-    </body>
+        <div class="form-group">
+          <label for="password">Contrasena</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="********">
+          <div id="password-error" class="p-2">
+            <small id="password-error-text"></small>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+      </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/pre-login.js"></script>
+  </body>
 </html>
