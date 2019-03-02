@@ -12,10 +12,22 @@
   </head>
   <body>
     <div class="container">
-      <form id="my-form" class="d-flex flex-column justify-content-start align-items-stretch my-5" action="/login.php" method="post">
+      <form id="my-form" class="d-flex flex-column justify-content-start align-items-stretch my-5" action="api/login.php" method="post">
         <img class="logo mb-3" src="images/Random.jpg" alt="Logo del club" />
 
-        <div class="form-group">
+       	<?php
+
+        	if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
+          	echo '
+            	<div class="alert alert-' . ($_GET['msg_type'] == 'error' ? 'danger' : 'success')  . ' mt-3" role="alert">
+              	' . $_GET['msg']  . '
+            	</div>
+          	';
+        	}
+
+      	?>
+
+				<div class="form-group">
           <label for="email">Email</label>
           <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa tu email">
           <div id="email-error" class="p-2">
