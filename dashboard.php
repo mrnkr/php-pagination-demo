@@ -93,7 +93,7 @@
     </div>
 
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  		<form id="my-form" action="api/change_password.php" method="post">
+  		<form id="my-form" action="api/password-update.php" method="post">
 				<div class="modal-dialog" role="document">
     			<div class="modal-content">
       			<div class="modal-header">
