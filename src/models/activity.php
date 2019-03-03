@@ -96,6 +96,13 @@ class Activity {
 		throw new Exception('Something went wrong toggling activity :(');
 	}
 
+	public function removeUserFromAllActivities($user) {
+		$query = 'delete from ' . $this->partake . ' where associate_id = :associate_id';
+		$stmt  = $this->conn->prepare($query);
+		$stmt->bindParam(':associate_id', $user);
+		return $stmt->execute();
+	}
+
 	private function isUserPartaking($activity, $user) {
 		$query = 'select if((select count(*) from ' . $this->partake  . ' where associate_id = :user and activity_id = :activity) > 0, true, false) as partaking';
 		$stmt  = $this->conn->prepare($query);

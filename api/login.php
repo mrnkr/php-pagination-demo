@@ -18,9 +18,10 @@ $user = $userModel->verify($_POST['email'], $_POST['password']);
 
 if (!empty($user)) {
   $_SESSION['user_id'] = $user['id'];
+	$_SESSION['admin'] = $user['admin'];
 
 	if ($user['admin']) {
-		// go to admin.php
+		header('Location: ../admin.php', true, 301);
 	} else {
 		header('Location: ../dashboard.php', true, 301);
 	}
