@@ -38,6 +38,17 @@ class User {
     );
   }
 
+	public function updatePassword($user, $oldPass, $newPass) {
+		$query = 'update ' . $this->table . ' set password = :new_password where id = :id and password = :old_password';
+		$stmt  = $this->conn->prepare($query);
+
+		$stmt->bindParam(':id', $user);
+		$stmt->bindParam(':old_password', md5($oldPass));
+		$stmt->bindParam(':new_password', md5($newPass));
+
+		return $stmt->execute();
+	}
+
 }
 
 ?>

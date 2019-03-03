@@ -1,0 +1,11 @@
+#old-error, #new-error, #confirm-error {
+  display: none;
+}
+
+.visible {
+  display: block !important;
+}
+
+.has-pointer {
+  cursor: pointer;
+}
