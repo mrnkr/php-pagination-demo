@@ -97,16 +97,22 @@ class Activity {
 	}
 
 	private function isUserPartaking($activity, $user) {
-		$allActivities = $this->getAll();
-		$myActivities  = $this->forUser($user);
+		$query = 'select if((select count(*) from ' . $this->partake  . ' where associate_id = :user and activity_id = :activity) > 0, true, false) as partaking';
+		$stmt  = $this->conn->prepare($query);
 
-		foreach ($allActivities as $act) {
-			if ($act['id'] == $activity) {
-				return $myActivities[$act['name']];
-			}
-		}
+		$stmt->bindParam(':activity', $activity);
+		$stmt->bindParam(':user', $user);
 
-		throw new Exception('Invalid activity :(');
+		$stmt->execute();
+
+		if ($stmt->rowCount() == 0) {
+      throw new Exception('Something went terribly wrong!!');
+    }
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		extract($row);
+
+		return $partaking;
 	}
 
 }
