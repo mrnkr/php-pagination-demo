@@ -18,7 +18,12 @@ $user = $userModel->verify($_POST['email'], $_POST['password']);
 
 if (!empty($user)) {
   $_SESSION['user_id'] = $user['id'];
-  header('Location: ../dashboard.php', true, 301);
+
+	if ($user['admin']) {
+		// go to admin.php
+	} else {
+		header('Location: ../dashboard.php', true, 301);
+	}
   exit();
 } else {
   header('Location: ../index.php?msg=Credenciales+incorrectas&msg_type=error', true, 301);

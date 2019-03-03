@@ -11,7 +11,10 @@ class User {
 
   public function verify($email, $password) {
     // emails are set to be unique so there is no need to limit to one row
-    $query = 'SELECT * FROM ' . $this->table . ' WHERE email = :email AND password = :password';
+    $query = 'select af.*,
+										 if((select count(*) from admin where id = af.id) > 0, true, false) as admin
+							from ' . $this->table . ' as af
+							where email = :email and password = :password';
     $stmt  = $this->conn->prepare($query);
 
     $stmt->bindParam(':email', $email);
@@ -34,7 +37,8 @@ class User {
       'address' => $address,
       'phone' => $phone,
       'email' => $email,
-      'picture_url' => $picture_url
+      'picture_url' => $picture_url,
+      'admin' => $admin
     );
   }
 
