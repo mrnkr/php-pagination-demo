@@ -10,3 +10,15 @@
   user-select: none;          /* Likely future */
 	cursor: pointer;
 }
+
+#first_name-error, #last_name-error, #birthdate-error, #address-error, #phone-error, #email-error, #password-error, #picture-error {
+  display: none;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.visible {
+  display: block !important;
+}

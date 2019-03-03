@@ -92,7 +92,7 @@
                   	<img src="' . $act['picture_url']  . '" class="card-img-top" alt="' . $act['name'] . '">
                   	<div class="card-body">
                     	<h5 class="card-title">' . $act['name']  . '</h5>
-                    	<a href="api/activity_toggle.php?id=' . $act['id']  . '" class="btn btn-primary">' . ($myActivities[$act['name']] ? 'Darse de baja' : 'Darse de alta')  . '</a>
+                    	<a href="api/activity-toggle.php?id=' . $act['id']  . '" class="btn btn-primary">' . ($myActivities[$act['name']] ? 'Darse de baja' : 'Darse de alta')  . '</a>
                   	</div>
                 	</div>
              		</div>

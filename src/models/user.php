@@ -50,7 +50,11 @@ class User {
 		$stmt->bindParam(':old_password', md5($oldPass));
 		$stmt->bindParam(':new_password', md5($newPass));
 
-		return $stmt->execute();
+		if ($stmt->execute()) {
+			return $stmt->rowCount() > 0;
+		}
+
+		return false;
 	}
 
 }

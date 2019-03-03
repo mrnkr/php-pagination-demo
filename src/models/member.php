@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/activity.php';
 
 class Member {
 
-	private $table = 'associate';
+	private $table = 'member';
 	private $affiliate = 'affiliate';
 	private $conn;
 	private $activityModel;
@@ -33,7 +33,7 @@ class Member {
 	public function findOne($id) {
 		$query = 'select af.* from ' . $this->table . ' as m join ' . $this->affiliate . ' as af on m.id = af.id where m.id = :id';
 		$stmt  = $this->conn->prepare($query);
-		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		if ($stmt->rowCount() == 0) {
@@ -95,13 +95,13 @@ class Member {
 		extract($member);
 
 		$query = 'insert into ' . $this->affiliate .
-						' set first_name = :first_name
-									last_name = :last_name
-									birthdate = :birthdate
-									address = :address
-									phone = :phone
-									email = :email
-									password = :password
+						' set first_name = :first_name,
+									last_name = :last_name,
+									birthdate = :birthdate,
+									address = :address,
+									phone = :phone,
+									email = :email,
+									password = :password,
 									picture_url = :picture_url';
 		$stmt  = $this->conn->prepare($query);
 
@@ -116,9 +116,9 @@ class Member {
 
 		if ($stmt->execute()) {
       $id = $this->conn->lastInsertId();
-      $query = 'insert into ' . $this->table . '\` set id = :id';
+      $query = 'insert into ' . $this->table . ' set id = :id';
       $stmt  = $this->conn->prepare($query);
-      $stmt->bindParam(':id', $id);
+      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
       if ($stmt->execute()) {
         return $id;
@@ -132,30 +132,35 @@ class Member {
 		$old = $this->findOne($id);
 
 		$query = 'update ' . $this->affiliate .
-						' set first_name = :first_name
-									last_name = :last_name
-                  birthdate = :birthdate
-                  address = :address
-                  phone = :phone
+						' set first_name = :first_name,
+									last_name = :last_name,
+                  birthdate = :birthdate,
+                  address = :address,
+                  phone = :phone,
                   email = :email
-                  password = :password
-                  picture_url = :picture_url
 							where id = :id';
 		$stmt  = $this->conn->prepare($query);
 
-		$stmt->bindParam(':first_name', isset($diff['first_name']) ? htmlspecialchars(strip_tags($diff['first_name'])) : $old['first_name']);
-    $stmt->bindParam(':last_name', isset($diff['last_name']) ? htmlspecialchars(strip_tags($diff['last_name'])) : $old['last_name']);
-    $stmt->bindParam(':birthdate', isset($diff['birthdate']) ? htmlspecialchars(strip_tags($diff['birthdate'])) : $old['birthdate']);
-    $stmt->bindParam(':address', isset($diff['address']) ? htmlspecialchars(strip_tags($diff['address'])) : $old['address']);
-    $stmt->bindParam(':phone', isset($diff['phone']) ? htmlspecialchars(strip_tags($diff['phone'])) : $old['phone']);
-    $stmt->bindParam(':email', isset($diff['email']) ? htmlspecialchars(strip_tags($diff['email'])) : $old['email']);
-    $stmt->bindParam(':password', isset($diff['password']) ? md5($diff['password']) : $old['password']);
-    $stmt->bindParam(':picture_url', isset($diff['picture_url']) ? htmlspecialchars(strip_tags($diff['picture_url'])) : $old['picture_url']);
+		$first_name = isset($diff['first_name']) ? htmlspecialchars(strip_tags($diff['first_name'])) : $old['first_name'];
+		$last_name = isset($diff['last_name']) ? htmlspecialchars(strip_tags($diff['last_name'])) : $old['last_name'];
+		$birthdate = isset($diff['birthdate']) ? htmlspecialchars(strip_tags($diff['birthdate'])) : $old['birthdate'];
+		$address = isset($diff['address']) ? htmlspecialchars(strip_tags($diff['address'])) : $old['address'];
+		$phone = isset($diff['phone']) ? htmlspecialchars(strip_tags($diff['phone'])) : $old['phone'];
+		$email = isset($diff['email']) ? htmlspecialchars(strip_tags($diff['email'])) : $old['email'];
+
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$stmt->bindParam(':first_name', $first_name);
+    $stmt->bindParam(':last_name', $last_name);
+    $stmt->bindParam(':birthdate', $birthdate);
+    $stmt->bindParam(':address', $address);
+    $stmt->bindParam(':phone', $phone);
+    $stmt->bindParam(':email', $email);
+    // $stmt->bindParam(':picture_url', isset($diff['picture_url']) ? htmlspecialchars(strip_tags($diff['picture_url'])) : $old['picture_url']);
 
 		if ($stmt->execute()) {
-      return true;
+      return $stmt->rowCount() > 0;
     }
-    console_error('Error: ' . $stmt->error);
+
     return false;
 	}
 
@@ -164,12 +169,12 @@ class Member {
 
 		$query = 'delete from ' . $this->table . ' where id = :id';
 		$stmt  = $this->conn->prepare($query);
-		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
       $query = 'delete from ' . $this->affiliate  . ' where id = :id';
       $stmt  = $this->conn->prepare($query);
-      $stmt->bindParam(':id', $id);
+      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
       if ($stmt->execute()) {
         return true;
@@ -177,6 +182,7 @@ class Member {
     }
 
     console_error('Error: ' . $stmt->error);
+
     return false;
 	}
 
