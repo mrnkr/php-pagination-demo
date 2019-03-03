@@ -1,4 +1,14 @@
 <!doctype html>
+<?php
+
+session_start();
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['admin'])) {
+	header('Location: ' . ($_SESSION['admin'] ? 'admin.php' : 'dashboard.php'), true, 301);
+	exit();
+}
+
+?>
 <html lang="es">
   <head>
     <!-- Required meta tags -->

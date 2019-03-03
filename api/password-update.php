@@ -16,7 +16,7 @@ $conn = $db->connect();
 $userModel = new User($conn);
 $done = $userModel->updatePassword($_SESSION['user_id'], $_POST['old'], $_POST['new']);
 
-header('Location: ../dashboard.php?msg=' . ($done ? 'Tu+contrasena+ha+sido+actualizada' : 'Ha+ocurrido+un+error') . '&msg_type=' . ($done ? 'success' : 'error'), true, 301);
+header('Location: ../' . ($_SESSION['admin'] ? 'admin' : 'dashboard') . '.php?msg=' . ($done ? 'Tu+contrasena+ha+sido+actualizada' : 'Ha+ocurrido+un+error') . '&msg_type=' . ($done ? 'success' : 'error'), true, 301);
 exit();
 
 ?>
