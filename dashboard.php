@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <title>Club Social y Deportivo Random</title>
   </head>
   <body>
@@ -26,10 +26,10 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item">
-        				<a class="nav-link" href="#">Cambiar Contrasena</a>
+        				<a class="nav-link has-pointer" data-toggle="modal" data-target="#exampleModal">Cambiar Contrasena</a>
       				</li>
 							<li class="nav-item">
-        				<a class="nav-link" href="api/logout.php">Cerrar Sesion</a>
+        				<a class="nav-link has-pointer" href="api/logout.php">Cerrar Sesion</a>
       				</li>
 						</ul>
 					</div>
@@ -92,10 +92,55 @@
 			</div>
     </div>
 
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<form id="my-form" action="api/change_password.php" method="post">
+				<div class="modal-dialog" role="document">
+    			<div class="modal-content">
+      			<div class="modal-header">
+        			<h5 class="modal-title" id="exampleModalLabel">Cambiar contrasena</h5>
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      	    		<span aria-hidden="true">&times;</span>
+    	    		</button>
+  	    		</div>
+	      		<div class="modal-body">
+								<div class="form-group">
+    							<label for="old">Contrasena Actual</label>
+    							<input type="password" class="form-control" id="old" name="old" placeholder="********">
+									<div id="old-error" class="p-2">
+                  	<small id="old-error-text" class="text-danger"></small>
+                	</div>
+  							</div>
+
+								<div class="form-group">
+                	<label for="new">Nueva Contrasena</label>
+                	<input type="password" class="form-control" id="new" name="new" placeholder="********">
+									<div id="new-error" class="p-2">
+            				<small id="new-error-text" class="text-danger"></small>
+          				</div>
+              	</div>
+
+								<div class="form-group">
+                	<label for="old">Confirmar Nueva Contrasena</label>
+                	<input type="password" class="form-control" id="confirm" name="confirm" placeholder="********">
+									<div id="confirm-error" class="p-2">
+            				<small id="confirm-error-text" class="text-danger"></small>
+          				</div>
+            	  </div>
+      			</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        			<button type="submit" class="btn btn-primary">Listo</button>
+      			</div>
+    			</div>
+  			</div>
+			</form>
+		</div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="js/password-update.js"></script>
   </body>
 </html>

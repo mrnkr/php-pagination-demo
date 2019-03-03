@@ -38,7 +38,7 @@
           <label for="password">Contrasena</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="********">
           <div id="password-error" class="p-2">
-            <small id="password-error-text"></small>
+            <small id="password-error-text" class="text-danger"></small>
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Ingresar</button>
