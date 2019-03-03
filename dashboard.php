@@ -1,5 +1,5 @@
 <!doctype html>
-<?php session_start() ?>
+<?php session_start(); if (!isset($_SESSION['user_id'])) { header('Location: index.php', true, 301); exit(); }  ?>
 <html lang="es">
   <head>
     <!-- Required meta tags -->
