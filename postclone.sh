@@ -34,4 +34,4 @@ unset password
 unset page_len
 
 clear
-echo "Check out the site entering https://$(hostname -I)"
+echo "Entra a https://$(hostname -I) para ver el sitio"
