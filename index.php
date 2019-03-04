@@ -1,6 +1,11 @@
 <!doctype html>
 <?php
 
+/**
+ * If the session shows there is a user already logged in
+ * redirect to where they should be
+ */
+
 session_start();
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['admin'])) {
@@ -30,6 +35,12 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['admin'])) {
       <img class="logo mb-3" src="images/Random.jpg" alt="Logo del club" />
 
       <?php
+
+        /**
+         * If the user got redirected after an operation and the feedback was provided like
+         * index.php?msg=some+message&msg_typesuccess+or+error
+         * then show said message
+         */
 
         if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
           echo '

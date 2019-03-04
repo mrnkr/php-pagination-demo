@@ -7,6 +7,11 @@ class Database {
 
   private $conn;
 
+  /**
+   * Connects to a mysql database using credentials provided in configuracion.php
+   * 
+   * @return PDO The connection to the database
+   */
   public function connect() {
     global $host, $db_name, $username, $password;
     $this->conn = null;

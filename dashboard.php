@@ -1,6 +1,12 @@
 <!doctype html>
 <?php
 
+  /**
+   * If the session shows there is no user logged in send them back
+   * to the login page. If instead it shows the user which is logged
+   * in is an admin send them to their intended dashboard.
+   */
+
   session_start();
 
   if (!isset($_SESSION['user_id']) || !isset($_SESSION['admin'])) {
@@ -59,55 +65,62 @@
     <div class="container">
       <?php
 
-          if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
-            echo '
-              <div class="alert alert-' . ($_GET['msg_type'] == 'error' ? 'danger' : 'success')  . ' mt-3" role="alert">
-                ' . $_GET['msg']  . '
-              </div>
-            ';
-          }
+        /**
+         * If the user got redirected after an operation and the feedback was provided like
+         * dashboard.php?msg=some+message&msg_typesuccess+or+error
+         * then show said message
+         */
 
-        ?>
+        if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
+          echo '
+            <div class="alert alert-' . ($_GET['msg_type'] == 'error' ? 'danger' : 'success')  . ' mt-3" role="alert">
+              ' . $_GET['msg']  . '
+            </div>
+          ';
+        }
+
+      ?>
 
       <div class="d-flex flex-row flex-wrap">
         <?php
 
-            require_once dirname(__FILE__) . '/src/utils.php';
-            require_once dirname(__FILE__) . '/src/config/database.php';
-            require_once dirname(__FILE__) . '/src/models/activity.php';
+          /**
+           * Get all activities and put them as cards for the user to be able
+           * to see them and both register or unregister from them
+           */
 
-            if (!isset($_SESSION['user_id'])) {
-              exit('Not logged in');
-            }
+          require_once dirname(__FILE__) . '/src/utils.php';
+          require_once dirname(__FILE__) . '/src/config/database.php';
+          require_once dirname(__FILE__) . '/src/models/activity.php';
 
-            $output = '';
+          $output = '';
 
-            $db   = new Database();
-             $conn = $db->connect();
+          $db   = new Database();
+          $conn = $db->connect();
 
-            $activityModel = new Activity($conn);
-            $allActivities = $activityModel->getAll();
-            $myActivities  = $activityModel->forUser($_SESSION['user_id']);
+          $activity_model = new Activity($conn);
+          $activities = $activity_model->get_all();
+          $my_activities  = $activity_model->for_user($_SESSION['user_id']);
 
-            foreach ($allActivities as $act) {
-              extract($act);
+          foreach ($activities as $act) {
+            extract($act);
 
-              $output .= '
-                <div class="col-md-6">
-                  <div class="card my-2">
-                    <img src="' . $act['picture_url']  . '" class="card-img-top" alt="' . $act['name'] . '">
-                    <div class="card-body">
-                      <h5 class="card-title">' . $act['name']  . '</h5>
-                      <a href="api/activity-toggle.php?id=' . $act['id']  . '" class="btn btn-primary">' . ($myActivities[$act['name']] ? 'Darse de baja' : 'Darse de alta')  . '</a>
-                    </div>
+            $output .= '
+              <div class="col-md-6">
+                <div class="card my-2">
+                  <img src="' . $act['picture_url']  . '" class="card-img-top" alt="' . $act['name'] . '">
+                  <div class="card-body">
+                    <h5 class="card-title">' . $act['name']  . '</h5>
+                    <a href="api/activity-toggle.php?id=' . $act['id']  . '" class="btn btn-primary">' . ($my_activities[$act['name']] ? 'Darse de baja' : 'Darse de alta')  . '</a>
                   </div>
-                 </div>
-              ';
-            }
+                </div>
+              </div>
+            ';
+          }
 
-            echo $output;
+          echo $output;
 
-          ?>
+        ?>
       </div>
     </div>
   </div>

@@ -1,11 +1,25 @@
 <?php
 
+/**
+ * Endpoint which handles AJAX GET requests.
+ * 
+ * Sends back to the browser some html with the data associated
+ * to users. When there is a filter, like, show only users who
+ * partake in a particular activity, pagination is ignored.
+ * 
+ * When not provided with a filter nor with a page number it
+ * defaults to no filter and page = 1.
+ * 
+ * The length of pages is set in the global config file for the
+ * project.
+ */
+
+require_once dirname(__FILE__) . '/../configuracion.php';
 require_once dirname(__FILE__) . '/../src/config/database.php';
 require_once dirname(__FILE__) . '/../src/models/activity.php';
 require_once dirname(__FILE__) . '/../src/models/member.php';
 
 $page = 1;
-$page_len = 10;
 
 if (isset($_GET['page'])) {
   $page = $_GET['page'];
@@ -21,11 +35,11 @@ $conn = $db->connect();
 $members;
 
 if (isset($_GET['activity_id'])) {
-  $activityModel = new Activity($conn);
-  $members = $activityModel->getUsersForActivity($_GET['activity_id'], $limit, $offset);
+  $activity_model = new Activity($conn);
+  $members = $activity_model->get_users_for_activity($_GET['activity_id'], $limit, $offset);
 } else {
-  $memberModel = new Member($conn);
-  $members = $memberModel->find($limit, $offset);
+  $member_model = new Member($conn);
+  $members = $member_model->find($limit, $offset);
 }
 
 foreach($members as $m) {

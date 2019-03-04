@@ -1,14 +1,37 @@
+/**
+ * Hides all errors in the password update form
+ */
 function hideAllErrors() {
   $('#old-error').removeClass('visible');
   $('#new-error').removeClass('visible');
   $('#confirm-error').removeClass('visible');
 }
 
+/**
+ * Shows an error message below an input field in the
+ * password update form
+ *
+ * @param {string} element - element id in the markup code for the error container div
+ * @param {string} error - error message to show
+ */
 function showError(element, error) {
   $(element).addClass('visible');
   $(element + '-text').html(error);
 }
 
+/**
+ * Listen to form submission and intercept it
+ * to perform validation before running the associated
+ * action in the server.
+ * 
+ * Validates all passwords to be longer than 8 characters
+ * and for the new password to be equal to the confirm
+ * field contents.
+ * 
+ * When an error is found it not only shows the error but
+ * also by preventing the default action it prevents the
+ * delegation to the associated action in the server.
+ */
 $(function () {
   $('#my-form').on('submit', function (e) {
     hideAllErrors();

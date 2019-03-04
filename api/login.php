@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Form handler which gets the email and password for the user
+ * who is attempting to log in.
+ * 
+ * Verifies identity and if the credentials resolve to a valid user
+ * they will get redirected to the corresponding page. In other case
+ * they will be sent back to the login screen with the details
+ * corresponding to the error that happened.
+ */
+
 require_once dirname(__FILE__) . '/../src/utils.php';
 require_once dirname(__FILE__) . '/../src/config/database.php';
 require_once dirname(__FILE__) . '/../src/models/user.php';
@@ -13,8 +23,8 @@ session_start();
 $db   = new Database();
 $conn = $db->connect();
 
-$userModel = new User($conn);
-$user = $userModel->verify($_POST['email'], $_POST['password']);
+$user_model = new User($conn);
+$user = $user_model->verify($_POST['email'], $_POST['password']);
 
 if (!empty($user)) {
   extract($user);

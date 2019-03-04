@@ -1,6 +1,12 @@
 <!doctype html>
 <?php
 
+/**
+ * If the session indicates there is no user logged in redirect to the
+ * login page. If instead it indicates the user is not an admin send
+ * them to their intended dashboard.
+ */
+
 session_start();
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['admin'])) {
@@ -69,6 +75,11 @@ if (!$_SESSION['admin']) {
           <select class="ml-3">
             <?php
 
+              /**
+               * Get all activities registered in the system and put them as options within
+               * a select element.
+               */
+
               require_once dirname(__FILE__) . '/src/utils.php';
               require_once dirname(__FILE__) . '/src/config/database.php';
               require_once dirname(__FILE__) . '/src/models/activity.php';
@@ -78,11 +89,12 @@ if (!$_SESSION['admin']) {
               $db   = new Database();
               $conn = $db->connect();
               
-              $activityModel = new Activity($conn);
-              $allActivities = $activityModel->getAll();
+              $activity_model = new Activity($conn);
+              $activities = $activity_model->get_all();
 
-              foreach ($allActivities as $act) {
-                $output .= '<option value="' . $act['id'] . '">' . $act['name'] . '</option>';
+              foreach ($activities as $act) {
+                extract($act);
+                $output .= '<option value="' . $id . '">' . $name . '</option>';
               }
 
               echo $output;
@@ -95,6 +107,12 @@ if (!$_SESSION['admin']) {
 
     <div class="container">
       <?php
+
+        /**
+         * When the page gets requested as admin.php?msg=some+msg&msg_type=error+or+success
+         * show that message in a bootstrap alert.
+         * Used to provide feedback for the previously accomplished task.
+         */
 
         if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
           echo '
@@ -114,9 +132,13 @@ if (!$_SESSION['admin']) {
 
           <?php
 
-            if (!isset($_GET['filter'])) {
-              $page_len = 10;
+            /**
+             * If a filter was provided like admin.php?filter=:filter ignore this.
+             * In other case, show pagination controls :)
+             */
 
+            if (!isset($_GET['filter'])) {
+              require_once dirname(__FILE__) . '/configuracion.php';
               require_once dirname(__FILE__) . '/src/utils.php';
               require_once dirname(__FILE__) . '/src/config/database.php';
               require_once dirname(__FILE__) . '/src/models/member.php';
@@ -124,8 +146,8 @@ if (!$_SESSION['admin']) {
               $db   = new Database();
               $conn = $db->connect();
 
-              $memberModel = new Member($conn);
-              $cnt = $memberModel->count();
+              $member_model = new Member($conn);
+              $cnt = $member_model->count();
               $pages = ceil($cnt / $page_len);
 
               $output = '

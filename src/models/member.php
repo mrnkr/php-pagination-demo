@@ -15,6 +15,11 @@ class Member {
     $this->activityModel = new Activity($db);
   }
 
+  /**
+   * Counts how many members there are
+   * 
+   * @return int number of members registered
+   */
   public function count() {
     $query = 'select count(*) as cnt from ' . $this->table;
     $stmt  = $this->conn->prepare($query);
@@ -30,7 +35,13 @@ class Member {
     return $cnt;
   }
 
-  public function findOne($id) {
+  /**
+   * Gets the user associated to the passed id
+   * 
+   * @param int $id user id
+   * @return array associative array with user data
+   */
+  public function find_one($id) {
     $query = 'select af.* from ' . $this->table . ' as m join ' . $this->affiliate . ' as af on m.id = af.id where m.id = :id';
     $stmt  = $this->conn->prepare($query);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -55,6 +66,14 @@ class Member {
     );
   }
 
+  /**
+   * Gets a list of users allowing for basic pagination
+   * given an offset and a limit
+   * 
+   * @param int $limit not the actual limit applied to the query. $limit - $offset gets applied
+   * @param int $offset offset applied to the query
+   * @return array associative arrays with user data
+   */
   public function find($limit, $offset = 0) {
     $limit -= $offset;
     $ret = array();
@@ -91,7 +110,13 @@ class Member {
     return $ret;
   }
 
-  public function insertOne($member) {
+  /**
+   * Inserts a member in the database
+   * 
+   * @param array $member associative array with the data
+   * @return int id which was assigned to the inserted member
+   */
+  public function insert_one($member) {
     extract($member);
 
     $query = 'insert into ' . $this->affiliate .
@@ -128,8 +153,16 @@ class Member {
     return -1;
   }
 
-  public function updateOne($id, $diff) {
-    $old = $this->findOne($id);
+  /**
+   * Updates the user associated to the passed id given
+   * the passed diff associative array.
+   * 
+   * @param int $id member id
+   * @param array $diff associative array with the values to change
+   * @return bool true iif some member was actually updated
+   */
+  public function update_one($id, $diff) {
+    $old = $this->find_one($id);
 
     $query = 'update ' . $this->affiliate .
             ' set first_name = :first_name,
@@ -164,8 +197,15 @@ class Member {
     return false;
   }
 
-  public function deleteOne($id) {
-    $this->activityModel->removeUserFromAllActivities($id);
+  /**
+   * Deletes the member associated to the passed id after removing
+   * them from every activity they were previously registered to, if any.
+   * 
+   * @param int $id member id
+   * @return bool true iif some member got actually deleted
+   */
+  public function delete_one($id) {
+    $this->activityModel->remove_user_from_all_activities($id);
 
     $query = 'delete from ' . $this->table . ' where id = :id';
     $stmt  = $this->conn->prepare($query);
@@ -180,8 +220,6 @@ class Member {
         return true;
       }
     }
-
-    console_error('Error: ' . $stmt->error);
 
     return false;
   }
