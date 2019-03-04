@@ -58,6 +58,8 @@ if (!$_SESSION['admin']) {
       </div>
     </nav>
 
+    <?php include dirname(__FILE__) . '/src/views/hello.php'; ?>
+
     <div class="jumbotron jumbotron-fluid m-0 p-3">
       <div class="container">
         <div class="d-flex flex-row justify-content-between align-items-center">
@@ -72,8 +74,10 @@ if (!$_SESSION['admin']) {
               require_once dirname(__FILE__) . '/src/models/activity.php';
 
               $output = '<option value="" selected>Actividad</option>';
+
               $db   = new Database();
               $conn = $db->connect();
+              
               $activityModel = new Activity($conn);
               $allActivities = $activityModel->getAll();
 
@@ -92,15 +96,15 @@ if (!$_SESSION['admin']) {
     <div class="container">
       <?php
 
-          if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
-            echo '
-              <div class="alert alert-' . ($_GET['msg_type'] == 'error' ? 'danger' : 'success')  . ' mt-3" role="alert">
-                ' . $_GET['msg']  . '
-              </div>
-            ';
-          }
+        if (isset($_GET['msg']) && isset($_GET['msg_type'])) {
+          echo '
+            <div class="alert alert-' . ($_GET['msg_type'] == 'error' ? 'danger' : 'success')  . ' mt-3" role="alert">
+              ' . $_GET['msg']  . '
+            </div>
+          ';
+        }
 
-        ?>
+      ?>
 
       <ul id="pagination_data" class="list-group list-group-flush">
       </ul>

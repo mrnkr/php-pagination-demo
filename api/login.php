@@ -17,8 +17,12 @@ $userModel = new User($conn);
 $user = $userModel->verify($_POST['email'], $_POST['password']);
 
 if (!empty($user)) {
-  $_SESSION['user_id'] = $user['id'];
-  $_SESSION['admin'] = $user['admin'];
+  extract($user);
+
+  $_SESSION['user_id'] = $id;
+  $_SESSION['user_name'] = $first_name . ' ' . $last_name;
+  $_SESSION['user_email'] = $email;
+  $_SESSION['admin'] = $admin;
 
   if ($user['admin']) {
     header('Location: ../admin.php', true, 301);
