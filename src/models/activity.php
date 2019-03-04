@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/../utils.php';
 class Activity {
 
   public $table = 'activity';
-	public $affiliate = 'affiliate';
+  public $affiliate = 'affiliate';
   public $partake = 'partake';
   public $conn;
 
@@ -28,7 +28,7 @@ class Activity {
       extract($row);
 
       $cur = array(
-				'id' => $id,
+        'id' => $id,
         'name' => $name,
         'picture_url' => $picture_url
       );
@@ -39,62 +39,62 @@ class Activity {
     return $res;
   }
 
-	public function getUsersForActivity($activity) {
-		$res = array();
+  public function getUsersForActivity($activity) {
+    $res = array();
 
-		$query = 'select af.* from ' . $this->partake  . ' as p join ' . $this->affiliate  . ' as af on p.member_id = af.id where p.activity_id = :id';
-		$stmt  = $this->conn->prepare($query);
+    $query = 'select af.* from ' . $this->partake  . ' as p join ' . $this->affiliate  . ' as af on p.member_id = af.id where p.activity_id = :id';
+    $stmt  = $this->conn->prepare($query);
 
-		$stmt->bindParam(':id', $activity, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $activity, PDO::PARAM_INT);
 
-		$stmt->execute();
+    $stmt->execute();
 
-		if ($stmt->rowCount() == 0) {
-			return $res;
-		}
+    if ($stmt->rowCount() == 0) {
+      return $res;
+    }
 
-		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			extract($row);
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      extract($row);
 
-			$cur = array(
-				'id' => $id,
-      	'first_name' => $first_name,
-      	'last_name' => $last_name,
-      	'birthdate' => $birthdate,
-      	'address' => $address,
-      	'phone' => $phone,
-      	'email' => $email,
-      	'picture_url' => $picture_url
-			);
+      $cur = array(
+        'id' => $id,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
+        'birthdate' => $birthdate,
+        'address' => $address,
+        'phone' => $phone,
+        'email' => $email,
+        'picture_url' => $picture_url
+      );
 
-			array_push($res, $cur);
-		}
+      array_push($res, $cur);
+    }
 
-		return $res;
-	}
+    return $res;
+  }
 
   public function forUser($user) {
     $res = array();
 
     $query = '(
-			select distinct a.name,
-		      	 true as partakes
-			from ' . $this->table  . ' as a
-			left join ' . $this->partake . ' as p
-			on p.activity_id = a.id
-			where p.member_id = :user
-	  ) union (
-			select distinct name,
-		       	 false as partakes
-			from ' . $this->table . '
-			where id not in (
-				select distinct a.id
-				from ' . $this->table  . ' as a
-				left join ' . $this->partake  . ' as p
-				on p.activity_id = a.id
-				where p.member_id = :user
-			)
-	  )';
+      select distinct a.name,
+             true as partakes
+      from ' . $this->table  . ' as a
+      left join ' . $this->partake . ' as p
+      on p.activity_id = a.id
+      where p.member_id = :user
+    ) union (
+      select distinct name,
+              false as partakes
+      from ' . $this->table . '
+      where id not in (
+        select distinct a.id
+        from ' . $this->table  . ' as a
+        left join ' . $this->partake  . ' as p
+        on p.activity_id = a.id
+        where p.member_id = :user
+      )
+    )';
 
     $stmt  = $this->conn->prepare($query);
     $stmt->bindParam(':user', $user, PDO::PARAM_INT);
@@ -114,48 +114,48 @@ class Activity {
     return $res;
   }
 
-	public function toggleActivityForUser($activity, $user) {
-		$isPartaking = $this->isUserPartaking($activity, $user);
-		$query = $isPartaking ?
-							'delete from ' . $this->partake . ' where activity_id = :activity_id and member_id = :member_id' :
-							'insert into ' . $this->partake . ' (activity_id, member_id) values (:activity_id, :member_id)';
+  public function toggleActivityForUser($activity, $user) {
+    $isPartaking = $this->isUserPartaking($activity, $user);
+    $query = $isPartaking ?
+              'delete from ' . $this->partake . ' where activity_id = :activity_id and member_id = :member_id' :
+              'insert into ' . $this->partake . ' (activity_id, member_id) values (:activity_id, :member_id)';
 
-		$stmt  = $this->conn->prepare($query);
+    $stmt  = $this->conn->prepare($query);
     $stmt->bindParam(':activity_id', $activity, PDO::PARAM_INT);
     $stmt->bindParam(':member_id', $user, PDO::PARAM_INT);
 
-		if ($stmt->execute()) {
-			return !$isPartaking;
-		}
+    if ($stmt->execute()) {
+      return !$isPartaking;
+    }
 
-		throw new Exception('Something went wrong toggling activity :(');
-	}
+    throw new Exception('Something went wrong toggling activity :(');
+  }
 
-	public function removeUserFromAllActivities($user) {
-		$query = 'delete from ' . $this->partake . ' where member_id = :member_id';
-		$stmt  = $this->conn->prepare($query);
-		$stmt->bindParam(':member_id', $user, PDO::PARAM_INT);
-		return $stmt->execute();
-	}
+  public function removeUserFromAllActivities($user) {
+    $query = 'delete from ' . $this->partake . ' where member_id = :member_id';
+    $stmt  = $this->conn->prepare($query);
+    $stmt->bindParam(':member_id', $user, PDO::PARAM_INT);
+    return $stmt->execute();
+  }
 
-	private function isUserPartaking($activity, $user) {
-		$query = 'select if((select count(*) from ' . $this->partake  . ' where member_id = :user and activity_id = :activity) > 0, true, false) as partaking';
-		$stmt  = $this->conn->prepare($query);
+  private function isUserPartaking($activity, $user) {
+    $query = 'select if((select count(*) from ' . $this->partake  . ' where member_id = :user and activity_id = :activity) > 0, true, false) as partaking';
+    $stmt  = $this->conn->prepare($query);
 
-		$stmt->bindParam(':activity', $activity, PDO::PARAM_INT);
-		$stmt->bindParam(':user', $user, PDO::PARAM_INT);
+    $stmt->bindParam(':activity', $activity, PDO::PARAM_INT);
+    $stmt->bindParam(':user', $user, PDO::PARAM_INT);
 
-		$stmt->execute();
+    $stmt->execute();
 
-		if ($stmt->rowCount() == 0) {
+    if ($stmt->rowCount() == 0) {
       throw new Exception('Something went terribly wrong!!');
     }
 
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		extract($row);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    extract($row);
 
-		return $partaking;
-	}
+    return $partaking;
+  }
 
 }
 

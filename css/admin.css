@@ -1,14 +1,14 @@
 .avatar {
-	height: 64px;
-	width: 64px;
+  height: 64px;
+  width: 64px;
 }
 
 .has-pointer {
-	-webkit-user-select: none;  /* Chrome all / Safari all */
+  -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;          /* Likely future */
-	cursor: pointer;
+  cursor: pointer;
 }
 
 #first_name-error, #last_name-error, #birthdate-error, #address-error, #phone-error, #email-error, #password-error, #picture-error {
@@ -16,7 +16,7 @@
 }
 
 .hidden {
-	display: none !important;
+  display: none !important;
 }
 
 .visible {
