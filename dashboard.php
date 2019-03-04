@@ -54,6 +54,8 @@
       </div>
     </nav>
 
+    <?php include dirname(__FILE__) . '/src/views/hello.php'; ?>
+
     <div class="container">
       <?php
 
