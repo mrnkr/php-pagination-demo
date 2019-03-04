@@ -44,10 +44,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link has-pointer" data-toggle="modal" data-target="#passwordModal">Cambiar Contrasena</a>
+              <a class="nav-link has-pointer" data-toggle="modal" data-target="#passwordModal">Cambiar Contraseña</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link has-pointer" href="api/logout.php">Cerrar Sesion</a>
+              <a class="nav-link has-pointer" href="api/logout.php">Cerrar Sesión</a>
             </li>
           </ul>
         </div>
@@ -121,7 +121,7 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
-  <?php include dirname(__FILE__) . '/src/views/change-password.php';  ?>
+  <?php include dirname(__FILE__) . '/src/views/change-password.php'; ?>
 </body>
 
 </html>

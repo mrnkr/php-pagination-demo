@@ -27,7 +27,7 @@
           </div>
 
           <div class="form-group" id="picture-cont">
-            <label for="picture">Seleccionar foto</label>
+            <label for="picture">Seleccionar Foto</label>
             <input type="file" class="form-control-file" id="picture" name="picture">
             <div id="picture-error" class="p-2">
               <small id="picture-error-text" class="text-danger"></small>
@@ -51,7 +51,7 @@
           </div>
 
           <div class="form-group">
-            <label for="phone">Telefono</label>
+            <label for="phone">Teléfono</label>
             <input type="text" class="form-control" id="phone" name="phone" placeholder="099 123 456">
             <div id="phone-error" class="p-2">
               <small id="phone-error-text" class="text-danger"></small>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="form-group" id="password-cont">
-            <label for="password">Contrasena</label>
+            <label for="password">Contraseña</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="********">
             <div id="password-error" class="p-2">
               <small id="password-error-text" class="text-danger"></small>

@@ -34,7 +34,7 @@ function clearAllFields() {
 
 function setAllValues(affiliate) {
 	hideAllErrors();
-	$('#memberModalLabel').html('Modificacion de usuario');
+	$('#memberModalLabel').html('Modificación de usuario');
 	$('#first_name').val(affiliate.first_name);
 	$('#last_name').val(affiliate.last_name);
 	$('#birthdate').val(affiliate.birthdate);
@@ -89,12 +89,12 @@ $(function() {
 
 		if (firstName.length === 0) {
 			isValid = false;
-			showError('#first_name-error', 'Este campo es requerido');
+			showError('#first_name-error', 'Éste campo es requerido');
 		}
 
 		if (lastName.length === 0) {
 			isValid = false;
-			showError('#last_name-error', 'Este campo es requerido');
+			showError('#last_name-error', 'Éste campo es requerido');
 		}
 
 		if (!validateDate(birthdate)) {
@@ -104,22 +104,22 @@ $(function() {
 
 		if (!validateAddress(address)) {
 			isValid = false;
-			showError('#address-error', 'La direccion debe ser el nombre de la calle seguido por el numero. Ejemplo: Calle 2 123');
+			showError('#address-error', 'La dirección debe ser el nombre de la calle seguido por el número. Ejemplo: Calle 2 123');
 		}
 
 		if (!validatePhone(phone)) {
 			isValid = false;
-			showError('#phone-error', 'El telefono puede ser un celular (099 123 345) o fijo (2 623 45 21) uruguayo');
+			showError('#phone-error', 'El teléfono puede ser un celular (099 123 345) o fijo (2 623 45 21) uruguayo');
 		}
 
     if (!validateEmail(email)) {
       isValid = false;
-      showError('#email-error', 'Direccion de email invalida');
+      showError('#email-error', 'Dirección de email invalida');
     }
 
     if (password.length < 8 && !updating) {
       isValid = false;
-      showError('#password-error', 'La contrasena debe ser de mas de 8 caracteres');
+      showError('#password-error', 'La contraseña debe ser de mas de 8 caracteres');
     }
 
 		if (!validatePicture(picture) && !updating) {

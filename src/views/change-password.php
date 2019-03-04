@@ -4,14 +4,14 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Cambiar contrasena</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Cambiar contraseña</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="old">Contrasena Actual</label>
+            <label for="old">Contraseña Actual</label>
             <input type="password" class="form-control" id="old" name="old" placeholder="********">
             <div id="old-error" class="p-2">
               <small id="old-error-text" class="text-danger"></small>
@@ -19,7 +19,7 @@
           </div>
 
           <div class="form-group">
-            <label for="new">Nueva Contrasena</label>
+            <label for="new">Nueva Contraseña</label>
             <input type="password" class="form-control" id="new" name="new" placeholder="********">
             <div id="new-error" class="p-2">
               <small id="new-error-text" class="text-danger"></small>
@@ -27,7 +27,7 @@
           </div>
 
           <div class="form-group">
-            <label for="old">Confirmar Nueva Contrasena</label>
+            <label for="old">Confirmar Nueva Contraseña</label>
             <input type="password" class="form-control" id="confirm" name="confirm" placeholder="********">
             <div id="confirm-error" class="p-2">
               <small id="confirm-error-text" class="text-danger"></small>

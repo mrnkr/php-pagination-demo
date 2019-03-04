@@ -20,17 +20,17 @@ $(function () {
 
     if (oldPass.length < 8) {
       isValid = false;
-      showError('#old-error', 'La contrasena debe ser de mas de 8 caracteres');
+      showError('#old-error', 'La contraseña debe ser de más de 8 caracteres');
     }
 
     if (newPass.length < 8) {
       isValid = false;
-      showError('#new-error', 'La contrasena debe ser de mas de 8 caracteres');
+      showError('#new-error', 'La contraseña debe ser de más de 8 caracteres');
     }
 
     if (newPass !== confirm) {
       isValid = false;
-      showError('#confirm-error', 'Las contrasenas no coinciden');
+      showError('#confirm-error', 'Las contraseñas no coinciden');
     }
 
     if (!isValid) {

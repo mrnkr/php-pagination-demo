@@ -14,7 +14,7 @@ if (!$_SESSION['admin']) {
 }
 
 ?>
-<html lang="en">
+<html lang="es">
 
 <head>
   <!-- Required meta tags -->
@@ -48,10 +48,10 @@ if (!$_SESSION['admin']) {
                 onclick="clearAllFields()">Registrar Socio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link has-pointer" data-toggle="modal" data-target="#passwordModal">Cambiar Contrasena</a>
+              <a class="nav-link has-pointer" data-toggle="modal" data-target="#passwordModal">Cambiar Contraseña</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link has-pointer" href="api/logout.php">Cerrar Sesion</a>
+              <a class="nav-link has-pointer" href="api/logout.php">Cerrar Sesión</a>
             </li>
           </ul>
         </div>
@@ -111,43 +111,43 @@ if (!$_SESSION['admin']) {
           <?php
 
             if (!isset($_GET['filter'])) {
-            $page_len = 10;
+              $page_len = 10;
 
-            require_once dirname(__FILE__) . '/src/utils.php';
-            require_once dirname(__FILE__) . '/src/config/database.php';
-            require_once dirname(__FILE__) . '/src/models/member.php';
+              require_once dirname(__FILE__) . '/src/utils.php';
+              require_once dirname(__FILE__) . '/src/config/database.php';
+              require_once dirname(__FILE__) . '/src/models/member.php';
 
-            $db   = new Database();
-            $conn = $db->connect();
+              $db   = new Database();
+              $conn = $db->connect();
 
-            $memberModel = new Member($conn);
-            $cnt = $memberModel->count();
-            $pages = ceil($cnt / $page_len);
+              $memberModel = new Member($conn);
+              $cnt = $memberModel->count();
+              $pages = ceil($cnt / $page_len);
 
-            $output = '
-              <li class="page-item has-pointer">
-                <a class="page-link" onclick="previous()" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-            ';
+              $output = '
+                <li class="page-item has-pointer">
+                  <a class="page-link" onclick="previous()" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              ';
 
-            for ($i = 1; $i <= $pages; $i++) {
-              $output .= '<li class="page-item has-pointer"><a class="page-link" onclick="loadData(' . $i  . ')">' . $i  . '</a></li>';
+              for ($i = 1; $i <= $pages; $i++) {
+                $output .= '<li class="page-item has-pointer"><a class="page-link" onclick="loadData(' . $i . ')">' . $i . '</a></li>';
+              }
+
+              $output .= '
+                <li class="page-item has-pointer">
+                  <a class="page-link" onclick="next(' . $pages  . ')" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              ';
+
+              echo $output;
             }
 
-            $output .= '
-              <li class="page-item has-pointer">
-                <a class="page-link" onclick="next(' . $pages  . ')" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            ';
-
-            echo $output;
-            }
-
-            ?>
+          ?>
 
         </ul>
       </nav>
@@ -167,7 +167,7 @@ if (!$_SESSION['admin']) {
   <script src="js/pagination.js"></script>
 
   <?php include dirname(__FILE__) . '/src/views/register-member.php'; ?>
-  <?php include dirname(__FILE__) . '/src/views/change-password.php';  ?>
+  <?php include dirname(__FILE__) . '/src/views/change-password.php'; ?>
 </body>
 
 </html>

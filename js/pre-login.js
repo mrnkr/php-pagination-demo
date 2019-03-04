@@ -23,12 +23,12 @@ $(function () {
 
     if (!validateEmail(email)) {
       isValid = false;
-      showError('#email-error', 'Direccion de email invalida');
+      showError('#email-error', 'Dirección de email invalida');
     }
 
     if (password.length < 8) {
       isValid = false;
-      showError('#password-error', 'La contrasena debe ser de mas de 8 caracteres');
+      showError('#password-error', 'La contraseña debe ser de más de 8 caracteres');
     }
 
     if (!isValid) {

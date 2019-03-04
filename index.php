@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['admin'])) {
           ';
         }
 
-        ?>
+      ?>
 
       <div class="form-group">
         <label for="email">Email</label>
@@ -49,7 +49,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['admin'])) {
         </div>
       </div>
       <div class="form-group">
-        <label for="password">Contrasena</label>
+        <label for="password">Contraseña</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="********">
         <div id="password-error" class="p-2">
           <small id="password-error-text" class="text-danger"></small>
