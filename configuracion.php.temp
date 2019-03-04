@@ -1,0 +1,9 @@
+<?php
+
+$host     = ':host:';
+$db_name  = ':db_name:';
+$username = ':username:';
+$password = ':password:';
+$page_len = :page_len:;
+
+?>
