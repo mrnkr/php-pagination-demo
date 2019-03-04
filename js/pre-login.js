@@ -4,31 +4,31 @@ function validateEmail(email) {
 }
 
 function hideAllErrors() {
-  $("#email-error").removeClass("visible");
-  $("#password-error").removeClass("visible");
+  $('#email-error').removeClass('visible');
+  $('#password-error').removeClass('visible');
 }
 
 function showError(element, error) {
-  $(element).addClass("visible");
-  $(element + "-text").html(error);
+  $(element).addClass('visible');
+  $(element + '-text').html(error);
 }
 
-$(function() {
-  $('#my-form').on("submit", function(e) {
+$(function () {
+  $('#my-form').on('submit', function (e) {
     hideAllErrors();
-    var email = $("#email").val();
-    var password = $("#password").val();
+    var email = $('#email').val();
+    var password = $('#password').val();
 
     var isValid = true;
 
     if (!validateEmail(email)) {
       isValid = false;
-      showError("#email-error", "Direccion de email invalida");
+      showError('#email-error', 'Direccion de email invalida');
     }
 
     if (password.length < 8) {
       isValid = false;
-      showError("#password-error", "La contrasena debe ser de mas de 8 caracteres");
+      showError('#password-error', 'La contrasena debe ser de mas de 8 caracteres');
     }
 
     if (!isValid) {

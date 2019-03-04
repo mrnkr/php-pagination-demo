@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/../src/config/database.php';
 require_once dirname(__FILE__) . '/../src/models/user.php';
 
 if (!isset($_POST['old']) || !isset($_POST['new'])) {
-	die();
+  die();
 }
 
 $db   = new Database();

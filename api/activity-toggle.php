@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/../src/config/database.php';
 require_once dirname(__FILE__) . '/../src/models/activity.php';
 
 if (!isset($_GET['id'])) {
-	header('Location: ../dashboard.php?msg=Algo+salio+mal&msg_type=error', true, 301);
+  header('Location: ../dashboard.php?msg=Algo+salio+mal&msg_type=error', true, 301);
   exit();
 }
 

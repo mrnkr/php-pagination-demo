@@ -12,9 +12,9 @@ class User {
   public function verify($email, $password) {
     // emails are set to be unique so there is no need to limit to one row
     $query = 'select af.*,
-										 if((select count(*) from admin where id = af.id) > 0, true, false) as admin
-							from ' . $this->table . ' as af
-							where email = :email and password = :password';
+                     if((select count(*) from admin where id = af.id) > 0, true, false) as admin
+              from ' . $this->table . ' as af
+              where email = :email and password = :password';
     $stmt  = $this->conn->prepare($query);
 
     $stmt->bindParam(':email', $email);
@@ -42,20 +42,20 @@ class User {
     );
   }
 
-	public function updatePassword($user, $oldPass, $newPass) {
-		$query = 'update ' . $this->table . ' set password = :new_password where id = :id and password = :old_password';
-		$stmt  = $this->conn->prepare($query);
+  public function updatePassword($user, $oldPass, $newPass) {
+    $query = 'update ' . $this->table . ' set password = :new_password where id = :id and password = :old_password';
+    $stmt  = $this->conn->prepare($query);
 
-		$stmt->bindParam(':id', $user);
-		$stmt->bindParam(':old_password', md5($oldPass));
-		$stmt->bindParam(':new_password', md5($newPass));
+    $stmt->bindParam(':id', $user);
+    $stmt->bindParam(':old_password', md5($oldPass));
+    $stmt->bindParam(':new_password', md5($newPass));
 
-		if ($stmt->execute()) {
-			return $stmt->rowCount() > 0;
-		}
+    if ($stmt->execute()) {
+      return $stmt->rowCount() > 0;
+    }
 
-		return false;
-	}
+    return false;
+  }
 
 }
 
